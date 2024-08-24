@@ -5,29 +5,20 @@
 |Column|Type|Options|
 |------|----|-------|
 |nickname|string|null: false|
-|mail|string|null: false, unique: true, index: true|
-|password|string|null: false|
+|email|string|null: false, unique: true|
+|encrypted_password|string|null: false|
 |first_name|string|null: false|
 |last_name|string|null: false|
 |first_kana|string|null: false|
-|first_kana|string|null: false|
-|birth_year|integer|null: false|
-|birth_month|integer|null: false|
-|birth_day|integer|null: false|
+|last_kana|string|null: false|
+|birth_date|integer|null: false|
+
 
 ### Assosiation
-- has_one :credit_card, dependent: :destroy
 - has_one :sending_destination, dependent: :destroy
-- has_many :buyer_items, foreign_key: "buyer_id", class_name: "items"
-- has_many :seller_items, foreign_key: "seller_id", class_name: "items"
+- has_many :user, foreign_key: "buyer_id", class_name: "items"
+- has_many :user, foreign_key: "seller_id", class_name: "items"
 - has_many :comments
-
-## credit_cardsテーブル
-|Column|Type|Options|
-|------|----|-------|
-|user_id|integer|null: false|
-|customer_id|string|null: false|
-|card_id|string|null: false|
 
 ### Assosiation
 - belongs_to :user
@@ -36,15 +27,15 @@
 |Column|Type|Options|
 |------|----|-------|
 |post_code|string|null: false|
-|prefecture|string|null: false|
 |city|string|null: false|
 |house_number|string|null: false|
 |building_name|string|
 |phone_number|string|null: false|
-|user|references|null: false, foreign_key: true|
+|user_id|references|null: false, foreign_key: true|
 
 ### Assosiation
-- belongs_to :user
+- has_many :postage_payer_id, foreign_key: "seller_id"sending_destinations, 
+  belongs_to_active_hash :prefecture
 
 ## commentsテーブル
 |Column|Type|Options|
@@ -62,16 +53,14 @@
 |------|----|-------|
 |name|string|null: false|
 |price|integer|null: false|
-|item_description|string|
-|item_condition_id|integer|null: false, foreign_key: true|
-|postage_payer_id|integer|null: false, foreign_key: true|
-|preparation_day_id|integer|null: false, foreign_key: true|
-|prefecture_id|integer|null: false, foreign_key: true|
-|buyer|references|foreign_key: true|
-|seller|references|null: false, foreign_key: true|
-|category|references|null: false, foreign_key: true|
-|brand|integer|foreign_key: true|
-|image|references|null: false, foreign_key: true|
+|item_description|text|null: false|
+|item_condition_id|integer|null: false|
+|postage_payer_id|integer|null: false|
+|preparation_day_id|integer|null: false|
+|prefecture_id|integer|null: false|
+|category_id|integer|null: false|
+|user_id|references|null: false, foreign_key: true|
+
 
 ### Assosiation
 - has_many :item_images, dependent: :destroy
