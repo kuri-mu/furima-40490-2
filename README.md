@@ -66,6 +66,9 @@
 - belongs_to_active_hash :postage_payer
 - belongs_to_active_hash :preparation_day
 - belongs_to_active_hash :prefecture
+- belongs_to :user
+- has_one:purchase_histories
+
 
 ## purchase_historiesテーブル(購入履歴)
 |Column|Type|Options|
