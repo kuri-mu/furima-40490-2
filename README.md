@@ -15,9 +15,9 @@
 
 
 ### Assosiation
-- has_many :items, foreign_key: "item_id", class_name: "items"
-- has_many :items, foreign_key: "purchase_histories_id"
-- has_many :comments
+- has_one :items, foreign_key: "item_id", class_name: "items"
+- has_one :items, foreign_key: "purchase_histories_id"class_name: "items"
+- belongs_to :comments
 - has_many :purchase_histories
 
 ### Assosiation
@@ -31,11 +31,10 @@
 |house_number|string|null: false|
 |building_name|string|
 |phone_number|string|null: false|
-|user|references|null: false, foreign_key: true|
+|user|references|null: false, foreign_key:purchase_histories_id|
 
 ### Assosiation
-- has_many :postage_payers foreign_key:"purchase_histories_id"
-  belongs_to_active_hash :prefecture
+- belongs_to :purchase_histories
 
 ## commentsテーブル
 |Column|Type|Options|
@@ -76,15 +75,5 @@
 
 ### Assosiation
 - belongs_to :user
-- belongs_to :items
-
-## item_imagesテーブル
-|Column|Type|Options|
-|------|----|-------|
-|image|text|null: false|
-|item|references|null: false, foreign_key: true|
-
-### Assosiation
 - belongs_to :item
-
- gem => 'active_hash',  'ancestry'
+- has_one :prefecture_id
