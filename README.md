@@ -29,10 +29,10 @@
 |house_number|string|null: false|
 |building_name|string|
 |phone_number|string|null: false|
-|users|references|null: false, foreign_key: ture|
+|purchase_history|references|null: false, foreign_key: ture|
 
 ### Assosiation
-- belongs_to :purchase_histories
+- belongs_to :purchase_history
 
 ## commentsテーブル
 |Column|Type|Options|
@@ -65,7 +65,7 @@
 - belongs_to_active_hash :preparation_day
 - belongs_to_active_hash :prefecture
 - belongs_to :user
-- has_one:purchase_histories
+- has_one:purchase_history
 
 
 ## purchase_historiesテーブル(購入履歴)
@@ -77,4 +77,4 @@
 ### Assosiation
 - belongs_to :user
 - belongs_to :item
-- has_one :sending_destinations
+- has_one :sending_destination
