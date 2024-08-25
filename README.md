@@ -15,9 +15,7 @@
 
 
 ### Assosiation
-- has_one :items, foreign_key: "item_id", class_name: "items"
-- has_one :items, foreign_key: "purchase_histories_id"class_name: "items"
-- belongs_to :comments
+- has_many :items
 - has_many :purchase_histories
 
 ### Assosiation
@@ -31,7 +29,7 @@
 |house_number|string|null: false|
 |building_name|string|
 |phone_number|string|null: false|
-|user|references|null: false, foreign_key:purchase_histories_id|
+|users|references|null: false, foreign_key: ture|
 
 ### Assosiation
 - belongs_to :purchase_histories
@@ -79,4 +77,4 @@
 ### Assosiation
 - belongs_to :user
 - belongs_to :item
-- has_one :prefecture_id
+- has_one :sending_destinations
