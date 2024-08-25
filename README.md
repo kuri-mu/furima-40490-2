@@ -15,10 +15,10 @@
 
 
 ### Assosiation
-- has_one :sending_destination, dependent: :destroy
-- has_many :user, foreign_key: "item_id", class_name: "items"
-- has_many :user, foreign_key: "purchase_histories_id"
+- has_many :items, foreign_key: "item_id", class_name: "items"
+- has_many :items, foreign_key: "purchase_histories_id"
 - has_many :comments
+- has_many :purchase_histories
 
 ### Assosiation
 
@@ -31,10 +31,10 @@
 |house_number|string|null: false|
 |building_name|string|
 |phone_number|string|null: false|
-|user_id|references|null: false|
+|user|references|null: false, foreign_key: true|
 
 ### Assosiation
-- has_many :postage_payer_id foreign_key:"purchase_histories_id"
+- has_many :postage_payers foreign_key:"purchase_histories_id"
   belongs_to_active_hash :prefecture
 
 ## commentsテーブル
@@ -63,37 +63,20 @@
 
 
 ### Assosiation
-- has_many :item_images, dependent: :destroy
-- has_many :comments, dependent: :destroy
-- belongs_to :category
-- belongs_to :seller, class_name: "User"
-- belongs_to :buyer, class_name: "User"
 - belongs_to_active_hash :item_condition
 - belongs_to_active_hash :postage_payer
 - belongs_to_active_hash :preparation_day
 - belongs_to_active_hash :prefecture
-- belongs_to_active_hash :brand
 
 ## purchase_historiesテーブル(購入履歴)
 |Column|Type|Options|
 |------|----|-------|
-|user|references|null: false|
+|user|references|null: false, foreign_key: true|
 |item|references|null: false, foreign_key: true|
 
 ### Assosiation
-- has_many :user
+- belongs_to :user
 - belongs_to :items
-
-
-## categoriesテーブル
-|Column|Type|Options|
-|------|----|-------|
-|name|string|null: false|
-|ancestry|string|null: false|
-
-### Assosiation
-- has_many :items
-- has_ancestry
 
 ## item_imagesテーブル
 |Column|Type|Options|
