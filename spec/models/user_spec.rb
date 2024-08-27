@@ -51,6 +51,23 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include("Email can't be blank")
     end
 
+
+    it 'is invalid without an email' do
+      @user = User.new(
+        nickname: 'test',
+        email: '',
+        password: 'password1',
+        password_confirmation: 'password1',
+        first_name: '山田',
+        last_name: '太郎',
+        first_kana: 'カナ',
+        last_kana: 'カナ',
+        birth_date: '2000-01-01'
+      )
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Email can't be blank")
+    end
+
     it 'is invalid without a password' do
       @user = User.new(
         nickname: 'test',
@@ -67,6 +84,48 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include("Password can't be blank")
     end
 
+    it 'is invalid when email is in use' do
+      User.create!(
+        nickname: 'test1',
+        email: 'kkk@gmail.com',
+        password: 'password1',
+        password_confirmation: 'password1',
+        first_name: '山田',
+        last_name: '太郎',
+        first_kana: 'カナ',
+        last_kana: 'カナ',
+        birth_date: '2000-01-01'
+      )
+      @user = User.new(
+        nickname: 'test2',
+        email: 'kkk@gmail.com',
+        password: 'password1',
+        password_confirmation: 'password1',
+        first_name: '山田',
+        last_name: '次郎',
+        first_kana: 'カナ',
+        last_kana: 'カナ',
+        birth_date: '2000-02-01'
+      )
+      @user.valid?
+      expect(@user.errors.full_messages).to include('Email has already been taken')
+    end
+
+    it 'is invalid when email does not contain @' do
+      @user = User.new(
+        nickname: 'test',
+        email: 'kkkgmail.com',
+        password: 'password1',
+        password_confirmation: 'password1',
+        first_name: '山田',
+        last_name: '太郎',
+        first_kana: 'カナ',
+        last_kana: 'カナ',
+        birth_date: '2000-01-01'
+      )
+      @user.valid?
+      expect(@user.errors.full_messages).to include('Email is invalid')
+    end
     it 'is invalid without a first_name' do
       @user = User.new(
         nickname: 'test',
